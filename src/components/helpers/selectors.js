@@ -82,20 +82,20 @@
 
 export function getAppointmentsForDay(state, day) {
   //... returns an array of appointments for that day
-  let stateCopy = { ...state };
-  if (stateCopy.days.length === 0) {
+  let state2 = { ...state };
+  if (state2.days.length === 0) {
     return [];
   }
-  let result = stateCopy.days.filter(d => d.name === day);
+  let result = state2.days.filter(newday => newday.name === day);
   if (result.length === 0) {
     return [];
   }
   let appointmentsForDay = result[0].appointments;
-  let appointmentsKeys = Object.keys(stateCopy.appointments);
+  let appointmentsKeys = Object.keys(state2.appointments);
   let finalResult = [];
   for (let appID of appointmentsForDay) {
     if (appointmentsKeys.includes(appID.toString())) {
-      finalResult.push(stateCopy.appointments[appID.toString()]);
+      finalResult.push(state2.appointments[appID.toString()]);
     }
   }
   return finalResult;
@@ -103,18 +103,18 @@ export function getAppointmentsForDay(state, day) {
 export function getInterview(state, interview) {
   //... returns an interview object for the given interview
   //... or null if there is no interview
-  let stateCopy = { ...state };
+  let state2 = { ...state };
   let finalResult = {};
-  const appointmentsValues = Object.values(stateCopy.appointments);
+  const appointmentsValues = Object.values(state2.appointments);
   if (interview === null) {
     return null;
   }
   appointmentsValues.map(appointment => {
-    let interviewersKeys = Object.keys(stateCopy.interviewers);
+    let interviewersKeys = Object.keys(state2.interviewers);
     let interviewersId = interview.interviewer;
     let interviewerDetails = {};
     if (interviewersKeys.includes(interviewersId.toString())) {
-      interviewerDetails = stateCopy.interviewers[interviewersId.toString()];
+      interviewerDetails = state2.interviewers[interviewersId.toString()];
       finalResult = {
         student: interview.student,
         interviewer: interviewerDetails,

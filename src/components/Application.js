@@ -29,12 +29,12 @@ export default function Application(props) {
       axios.get(appointmentURL),
       axios.get(interviewerURL),
     ]).then(all => {
-      const [first, second, third] = all;
-      setState(prev => ({
-        ...prev,
-        days: first.data,
-        appointments: second.data,
-        interviewers: third.data,
+      const [firstItem, secondItem, thirdItem] = all;
+          setState(prev => ({
+            ...prev,
+            days: firstItem.data,
+            appointments: secondItem.data,
+            interviewers: thirdItem.data,
       }));
     });
   }, []);

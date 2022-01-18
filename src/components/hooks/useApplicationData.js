@@ -29,12 +29,12 @@ const useApplicationData = () => {
           axios.get(appointmentURL),
           axios.get(interviewerURL),
         ]).then(all => {
-          const [first, second, third] = all;
+          const [firstItem, secondItem, thirdItem] = all;
           setState(prev => ({
             ...prev,
-            days: first.data,
-            appointments: second.data,
-            interviewers: third.data,
+            days: firstItem.data,
+            appointments: secondItem.data,
+            interviewers: thirdItem.data,
           }));
         });
       }, []);
