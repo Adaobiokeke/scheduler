@@ -33,7 +33,7 @@ export default function(
         setError("Student name cannot be blank");
         return;
       }
-    
+    console.log("i was clicked")
       setError("");
       onSave(formName, formInterviewer);
     }
