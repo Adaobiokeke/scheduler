@@ -1,6 +1,7 @@
-import React,{useState,useEffect} from 'react'
+import React,{useReducer,useEffect} from 'react'
 import 'components/Application.scss';
 import DayList from './DayList';
+import reducer from "../Reducers/reducers"
 import Appointment from './Appointment/index';
 import axios from 'axios';
 import {
@@ -11,7 +12,7 @@ import {
 
 
 const useApplicationData = () => {
-    const [state, setState] = useState({
+    const [state, dispatch] = useReducer(reducer,{
         day: 'Monday',
         days: [],
         appointments: [],
@@ -30,7 +31,7 @@ const useApplicationData = () => {
           axios.get(interviewerURL),
         ]).then(all => {
           const [firstItem, secondItem, thirdItem] = all;
-          setState(prev => ({
+          dispatch(prev => ({
             ...prev,
             days: firstItem.data,
             appointments: secondItem.data,
@@ -39,7 +40,7 @@ const useApplicationData = () => {
         });
       }, []);
       
-      const setDay = day => setState({ ...state, day });
+      const setDay = day => dispatch({type:"setDay",value: day });
       
       function bookInterview(id, interview) {
         const appointment = {
@@ -51,7 +52,7 @@ const useApplicationData = () => {
           ...state.appointments,
           [id]: appointment
         };
-        setState(prev => ({
+        dispatch(prev => ({
           ...prev,
           appointments,
         }))
@@ -74,7 +75,7 @@ const useApplicationData = () => {
           ...state.appointments,
           [id]: appointment
         };
-        setState(prev => ({
+        dispatch(prev => ({
           ...prev,
           appointments,
         }))
@@ -85,22 +86,22 @@ const useApplicationData = () => {
       .then(res => console.log(res))
       }
     
-      const dailyAppointments = getAppointmentsForDay(state, state.day);
-      const interviewers = getInterviewersForDay(state, state.day);
-      const schedule = dailyAppointments.map((appointment,key) => {
-        const interview = getInterview(state, appointment.interview);
-        return (
-          <Appointment
-            key={appointment.id}
-            id={appointment.id}
-            time={appointment.time}
-            interview={interview}
-            interviewers={interviewers}
-            bookInterview={bookInterview}
-            cancelInterview ={cancelInterview}
-          />
-        );
-      });
+    //   const dailyAppointments = getAppointmentsForDay(state, state.day);
+    //   const interviewers = getInterviewersForDay(state, state.day);
+    //   const schedule = dailyAppointments.map((appointment,key) => {
+    //     const interview = getInterview(state, appointment.interview);
+    //     return (
+    //       <Appointment
+    //         key={appointment.id}
+    //         id={appointment.id}
+    //         time={appointment.time}
+    //         interview={interview}
+    //         interviewers={interviewers}
+    //         bookInterview={bookInterview}
+    //         cancelInterview ={cancelInterview}
+    //       />
+    //     );
+    //   });
     return (
     //     <main className="layout">
     //   <section className="sidebar">
