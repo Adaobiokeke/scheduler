@@ -86,16 +86,16 @@ export default function(
   };
 
 
-  //Side effect that listens for changes in state
-  useEffect(() => {
 
-    if (interview && mode === EMPTY) {
-     transition(SHOW);
-    }
-    if (interview === null && mode === SHOW) {
-     transition(EMPTY);
-    }
-   }, [interview, transition, mode]);
+  // side effect that listens for changes to the interview, transition or mode values
+  useEffect(() =>{
+  if(interview && mode === EMPTY) {
+    transition(SHOW);
+  }
+  if (interview === null && mode ===SHOW){
+    transition(EMPTY);
+  }
+},[interview,transition,mode]);
 
   return (
     <article data-testid="appointment">
