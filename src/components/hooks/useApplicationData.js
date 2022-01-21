@@ -1,14 +1,14 @@
-import React,{useReducer,useEffect} from 'react'
+import {useReducer,useEffect} from 'react'
 import 'components/Application.scss';
-import DayList from './DayList';
+// import DayList from './DayList';
 import reducer from "../Reducers/reducers"
-import Appointment from './Appointment/index';
+// import Appointment from './Appointment/index';
 import axios from 'axios';
-import {
-  getAppointmentsForDay,
-  getInterview,
-  getInterviewersForDay,
-} from '../components/helpers/selectors';
+// import {
+//   getAppointmentsForDay,
+//   getInterview,
+//   getInterviewersForDay,
+// } from '../components/helpers/selectors';
 
 
 const useApplicationData = () => {
@@ -19,26 +19,7 @@ const useApplicationData = () => {
         interviewers: {},
       });
     
-      useEffect(() => {
-        //defining the URL variables
-        const dayURL = 'http://localhost:8080/api/days';
-        const appointmentURL = 'http://localhost:8080/api/appointments';
-        const interviewerURL = 'http://localhost:8080/api/interviewers';
-       
-        Promise.all([
-          axios.get(dayURL),
-          axios.get(appointmentURL),
-          axios.get(interviewerURL),
-        ]).then(all => {
-          const [firstItem, secondItem, thirdItem] = all;
-          dispatch(prev => ({
-            ...prev,
-            days: firstItem.data,
-            appointments: secondItem.data,
-            interviewers: thirdItem.data,
-          }));
-        });
-      }, []);
+      
       
       const setDay = day => dispatch({type:"setDay",value: day });
       
@@ -85,56 +66,49 @@ const useApplicationData = () => {
       axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(res => console.log(res))
       }
+
+      useEffect(() => {
+        //defining the URL variables
+        let dayURL = 'http://localhost:8080/api/days';
+        let appointmentURL = 'http://localhost:8080/api/appointments';
+        let interviewerURL = 'http://localhost:8080/api/interviewers';
+       
+        Promise.all([
+          axios.get(dayURL),
+          axios.get(appointmentURL),
+          axios.get(interviewerURL),
+        ]).then(all => {
+          const [firstItem, secondItem, thirdItem] = all;
+            dayURL= firstItem.data;
+            appointmentURL= secondItem.data;
+            interviewerURL= thirdItem.data;
+        dispatch({
+            type: "setData",
+            value: { dayURL, appointmentURL, interviewerURL }
+          });
     
-    //   const dailyAppointments = getAppointmentsForDay(state, state.day);
-    //   const interviewers = getInterviewersForDay(state, state.day);
-    //   const schedule = dailyAppointments.map((appointment,key) => {
-    //     const interview = getInterview(state, appointment.interview);
-    //     return (
-    //       <Appointment
-    //         key={appointment.id}
-    //         id={appointment.id}
-    //         time={appointment.time}
-    //         interview={interview}
-    //         interviewers={interviewers}
-    //         bookInterview={bookInterview}
-    //         cancelInterview ={cancelInterview}
-    //       />
-    //     );
-    //   });
-    return (
-    //     <main className="layout">
-    //   <section className="sidebar">
-    //     <img
-    //       className="sidebar--centered"
-    //       src="images/logo.png"
-    //       alt="Interview Scheduler"
-    //     />
-    //     <hr className="sidebar__separator sidebar--centered" />
-    //     <nav className="sidebar__menu">
-    //       <DayList days={state.days} day={state.day} setDay={setDay} />
-    //     </nav>
-    //     <img
-    //       className="sidebar__lhl sidebar--centered"
-    //       src="images/lhl.png"
-    //       alt="Lighthouse Labs"
-    //     />
-    //   </section>
-    //   <section className="schedule">
-    //     <section className="schedule">
-    //       {schedule}
-    //       <Appointment key="last" time="5pm" />
-    //     </section>
-    //   </section>
-    // </main>
-    // )
-    {
-        state,
-        setDay,
-        bookInterview,
-        cancelInterview
-      });
+     
+      //setting up websocket 
+      const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+      socket.onopen = () => {
+        console.log("Web socket opened");
+        socket.send("Ping...");
+      };
+
+      //On message from server, update state with interview
+      socket.onmessage = appointmentData => {
+        const appointment = JSON.parse(appointmentData.data);
+        console.log(appointment);
+
+        if (appointment.type === "SET_INTERVIEW") {
+
+          dispatch({ type: "updateInterview", id: appointment.id, interview: appointment.interview});
+        }
+      }
     
+    });
+}, []);
+      return { state, setDay, bookInterview, cancelInterview };
 }
 
 export default useApplicationData
