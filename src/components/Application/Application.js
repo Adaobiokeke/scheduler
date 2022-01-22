@@ -33,9 +33,9 @@ export default function Application(props) {
       const [firstItem, secondItem, thirdItem] = all;
           setState(prev => ({
             ...prev,
-            days: firstItem.data,
-            appointments: secondItem.data,
-            interviewers: thirdItem.data,
+            days: firstItem,
+            appointments: secondItem,
+            interviewers: thirdItem,
       }));
     });
   }, []);

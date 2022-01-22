@@ -1,14 +1,8 @@
 import {useReducer,useEffect} from 'react'
 import 'components/Application.scss';
-// import DayList from './DayList';
 import reducer from "../Reducers/reducers"
-// import Appointment from './Appointment/index';
 import axios from 'axios';
-// import {
-//   getAppointmentsForDay,
-//   getInterview,
-//   getInterviewersForDay,
-// } from '../components/helpers/selectors';
+
 
 
 const useApplicationData = () => {
