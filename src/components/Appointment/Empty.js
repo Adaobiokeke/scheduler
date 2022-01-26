@@ -2,10 +2,9 @@
 import React from "react";
 
 
-/**
- * Returns empty JSX view for appointment
- * @param {} props 
- */ 
+
+ //Returns empty JSX view for appointment
+
 export default function(props) {
 
   const CREATE = "CREATE";

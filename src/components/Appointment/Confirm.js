@@ -1,6 +1,5 @@
 import React from 'react'
 import Button from "components/Button"
-import {onConfirm, onCancel} from "./index"
 
 const Confirm = ({message, onCancel, onConfirm} = this.props) => {
     return (
