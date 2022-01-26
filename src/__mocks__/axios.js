@@ -52,6 +52,11 @@ const fixtures = {
       }
     }
   };
+  const interview ={ 
+    student: "Lydia Miller-Jones",
+    interviewer: "Sylvia Palmer"
+  }
+  
   export default {
     get: jest.fn(url => {
       if (url === "/api/days") {
@@ -79,5 +84,13 @@ const fixtures = {
             data: fixtures.interviewers
           });
       }
-    })
+    }),
+      put: jest.fn(() => {
+        return Promise.resolve({
+          status: 200,
+          statusText: "OK",
+          data: interview
+        })
+      }),
+    
   }
