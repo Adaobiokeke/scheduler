@@ -1,0 +1,5 @@
+export default {
+    SET_DAY:"SET_DAY",
+    SET_INTERVIEW:"SET_INTERVIEW",
+    FETCH_DATA: "FETCH_DATA",
+}

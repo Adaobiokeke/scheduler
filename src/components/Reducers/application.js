@@ -3,28 +3,39 @@
  * @param {*} state 
  * @param {*} action 
  */
+import actionTypes from "../Actions/types"
+
+const { 
+  SET_DAY,
+  FETCH_DATA,
+  SET_INTERVIEW
+} = actionTypes
+
  const reducer = (state, action) => {
   switch (action.type) {
-    case "setDay":
-      return { ...state, day: action.value };
+    case "FETCH_DATA":
+      return{...state, ...action.payload};
 
-    case "updateInterview":
+    case SET_DAY:
+      return { ...state, day: action.payload };
 
+    case SET_INTERVIEW:
+      const {interview, id} = action.payload
       let currentDay = state.days.find(
-        day => day.appointments.includes(action.id)
+        day => day.appointments.includes(id)
       );
 
       //Updates the spots information for that day and correct appointment information for a new interview and ready's for rendering
-      if(action.interview){
+      if(interview){
         currentDay.spots -= 1;
         const appointment = {
-          ...state.appointments[action.id],
-          interview: { ...action.interview }
+          ...state.appointments[id],
+          interview: { ...interview }
         };
         
         const appointments = {
           ...state.appointments,
-          [ action.id]: appointment
+          [id]: appointment
         };
         let newDaysArr = [...state.days];
         newDaysArr[currentDay.id -1] = currentDay;
@@ -35,13 +46,13 @@
       else{
         currentDay.spots += 1;
         const appointment = {
-          ...state.appointments[action.id],
+          ...state.appointments[id],
           interview: null
         };
         
         const appointments = {
           ...state.appointments,
-          [ action.id]: appointment
+          [ id]: appointment
         };
 
         let newDaysArr = [...state.days];
@@ -52,14 +63,14 @@
 
 
     //Fills the data from server database and ready's for rendering
-    case "setData":
-      return {
-        ...state,
-        days: action.value.days,
-        appointments: action.value.appointments,
-        interviewers: action.value.interviewers
+    // case "setData":
+    //   return {
+    //     ...state,
+    //     days: action.value.days,
+    //     appointments: action.value.appointments,
+    //     interviewers: action.value.interviewers
 
-      };
+    //   };
 
     default:
       throw new Error(
