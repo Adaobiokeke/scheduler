@@ -1,8 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from "react";
 import "./InterviewerListItem.scss";
-import classnames from "classnames";
 
+const classnames =require ("classnames");
 
 
 const InterviewerListItem = function (props) {
@@ -31,3 +31,5 @@ const InterviewerListItem = function (props) {
   );
 };
 export default InterviewerListItem;
+
+

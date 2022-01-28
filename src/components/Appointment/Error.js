@@ -1,6 +1,6 @@
 import React from "react";
 
-const Error = (onClose,message) => {
+const Error = ({onClose,message}) => {
   
   return (
     <main className="appointment__card appointment__card--error">

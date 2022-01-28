@@ -52,7 +52,7 @@ export default function (
 
       const interview = {
         student: name,
-        interviewer
+        interviewer: interviewer.id
       };
       bookInterview(id, interview)
         .then(() => transition(SHOW))
@@ -103,7 +103,7 @@ export default function (
       {mode === SHOW && interview && (
         <Show
           student={interview.student}
-          interviewer={interview}
+          interviewer={interview.interviewer}
           onDelete={remove}
           onEdit={edit}
         />
@@ -127,13 +127,25 @@ export default function (
 
       {mode === EDIT && (
         <Form
-          name={student}
-          interviewer={interview}
+          name={interview.student}
+          interviewer={interview.interviewer}
           onCancel={back}
           onSave={save}
           interviewers={interviewers}
         />
       )}
+
+      {mode === ERROR_DELETE && (
+      <Error
+        onClose={back}
+        message={"Could not delete appointment."}
+      />)}
+
+      {mode === ERROR_SAVE && (
+      <Error
+        onClose={back}
+        message={"Could not save appointment."}
+      />)}
 
     </article>
   );

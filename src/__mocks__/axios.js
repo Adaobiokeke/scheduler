@@ -96,7 +96,7 @@
 //   }
 
 
-const fixtures = {
+let fixtures = {
   days: [
     {
       id: 1,
@@ -153,13 +153,13 @@ const fixtures = {
 
 
 //Defines our fake get, put, delete requestion from our fake axios. For testing purposes.
-  const defaults =  { url: "http://localhost:8000/"}
+  const defaults =  { url: "http://localhost:8080/"}
 
   /**
    * Mock Axios. get, returns status
    */
   const get = jest.fn(url => {
-    if (url === "/api/days") {
+    if (url === "http://localhost:8080/api/days") {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -167,7 +167,7 @@ const fixtures = {
       });
     }
 
-    if (url === "/api/appointments") {
+    if (url === "http://localhost:8080/api/appointments") {
       /* Resolve appointments data */
 
       return Promise.resolve({
@@ -177,7 +177,7 @@ const fixtures = {
       })
     }
 
-    if (url === "/api/interviewers") {
+    if (url === "http://localhost:8080/api/interviewers") {
       /* Resolve interviewers data */
 
       return Promise.resolve({
@@ -215,7 +215,7 @@ const fixtures = {
 
       //Returns our mock delete request
       console.log("deleting");
-      if (url === "/api/appointments/1" || url === "/api/appointments/2") {
+      if (url === "http://localhost:8080/api/appointments/1" || url === "http://localhost:8080/api/appointments/2") {
         return Promise.resolve({
           status: 204,
           statusText: "No Content"

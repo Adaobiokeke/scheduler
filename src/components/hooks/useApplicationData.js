@@ -45,7 +45,8 @@ export default function useApplicationData(props) {
   }
 
  const cancelInterview =(id) =>{
-     return axios.delete(`http://localhost:8080/api/appointments/${id}`).then(res =>{
+     return axios.delete(`http://localhost:8080/api/appointments/${id}`)
+      .then(res =>{
      dispatch({
         type: SET_INTERVIEW,
         payload:{ 
