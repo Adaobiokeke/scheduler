@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {Fragment, useState } from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
@@ -39,11 +39,12 @@ export default function ({
   }
 
   return (
+    <Fragment>
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off">
+        <form autoComplete="off" >
           <input
-            className="appointment__create-input text--semi-bold"
+            className="appointment__create-input text--semi-bold" 
             name="name"
             type="text"
             placeholder="Enter Student Name"
@@ -78,5 +79,6 @@ export default function ({
         </section>
       </section>
     </main>
+    </Fragment>
   );
 }
