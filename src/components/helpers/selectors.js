@@ -4,7 +4,7 @@ export function getAppointmentsForDay(state, day) {
   if (secondState.days.length === 0) {
     return [];
   }
-  let result = secondState.days.filter(d => d.name === day);
+  let result = secondState.days.filter((d) => d.name === day);
   if (result.length === 0) {
     return [];
   }
@@ -18,42 +18,18 @@ export function getAppointmentsForDay(state, day) {
   }
   return finalResult;
 }
-// export function getInterview(state, interview) {
-//   //... returns an interview object for the given interview
-//   //... or null if there is no interview
-//   let secondState = { ...state };
-//   let finalResult = {};
-//   const appointmentsValues = Object.values(secondState.appointments);
-//   if (interview === null) {
-//     return null;
-//   }
-//   // eslint-disable-next-line array-callback-return
-//   appointmentsValues.map(appointment => {
-//     let interviewersKeys = Object.keys(secondState.interviewers);
-//     let interviewersId = interview.interviewer;
-//     let interviewerDetails = {};
-//     if (interviewersKeys.includes(interviewersId.toString())) {
-//       interviewerDetails = secondState.interviewers[interviewersId.toString()];
-//       finalResult = {
-//         student: interview.student,
-//         interviewer: interviewerDetails,
-//       };
-//     }
-//   });
-//   return finalResult;
-// }
 
 export function getInterview(state, interview) {
   let interviewersObj = state.interviewers;
   let result = {};
 
-  if(!interviewersObj || !interview){
+  if (!interviewersObj || !interview) {
     return null;
   }
 
-  for(const key of Object.keys(interviewersObj)){
+  for (const key of Object.keys(interviewersObj)) {
     let interviewer = interviewersObj[key];
-    if(interviewer.id === interview.interviewer){
+    if (interviewer.id === interview.interviewer) {
       result["interviewer"] = interviewer;
       result["student"] = interview.student;
     }
@@ -66,10 +42,8 @@ export function getInterviewersForDay(state, day) {
   if (secondState.days.length === 0) {
     return [];
   }
-  let result = secondState.days.filter(d => d.name === day);
-  if (result.length === 0) {
-    return [];
-  }
+  let result = secondState.days.filter((d) => d.name === day);
+  if (result.length === 0) return [];
   let interviewersForDay = result[0].interviewers;
   let interviewersKeys = Object.keys(secondState.interviewers);
   let finalResult = [];

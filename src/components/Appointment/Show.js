@@ -1,6 +1,6 @@
 import React from "react";
 
-const Show = ({student, interviewer, onEdit, onDelete}) => {
+const Show = ({ student, interviewer, onEdit, onDelete }) => {
   return (
     <main className="appointment__card appointment__card--show">
       <section className="appointment__card-left">

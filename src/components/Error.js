@@ -1,10 +1,8 @@
 import React from "react";
 
-export default function({onClose, message}=this.props) {
+export default function ({ onClose, message } = this.props) {
+  //Returns Error view for appointment
 
-  /**
-   * Returns Error view for appointment
-   */
   return (
     <main className="appointment__card appointment__card--error">
       <section className="appointment__error-message">
@@ -17,6 +15,6 @@ export default function({onClose, message}=this.props) {
         alt="Close"
         onClick={onClose}
       />
-    </main> 
-  )
+    </main>
+  );
 }

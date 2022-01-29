@@ -1,12 +1,8 @@
-
 import React from "react";
 
+//Returns empty JSX view for appointment
 
-
- //Returns empty JSX view for appointment
-
-export default function(props) {
-
+export default function (props) {
   const CREATE = "CREATE";
 
   return (
@@ -15,8 +11,8 @@ export default function(props) {
         className="appointment__add-button"
         src="images/add.png"
         alt="Add"
-        onClick={()=>props.onAdd(CREATE)}
+        onClick={() => props.onAdd(CREATE)}
       />
     </main>
-  )
+  );
 }

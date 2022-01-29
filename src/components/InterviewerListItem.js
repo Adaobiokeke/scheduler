@@ -2,8 +2,7 @@
 import React from "react";
 import "./InterviewerListItem.scss";
 
-const classnames =require ("classnames");
-
+const classnames = require("classnames");
 
 const InterviewerListItem = function (props) {
   let InterviewerClass = classnames("interviewers__item", {
@@ -31,5 +30,3 @@ const InterviewerListItem = function (props) {
   );
 };
 export default InterviewerListItem;
-
-

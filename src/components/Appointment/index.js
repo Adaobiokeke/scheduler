@@ -11,23 +11,17 @@ import useVisualMode from "../hooks/useVisualMode";
 import Confirm from "components/Appointment/Confirm";
 import Error from "components/Appointment/Error";
 
+// Returns the entire appointment view
 
-/**
- * Returns the entire appointment view
- * @param {} param0 
- */
-export default function (
-  {
-    id,
-    time,
-    interview,
-    student,
-    interviewers,
-    bookInterview,
-    cancelInterview
-  }
-) {
-
+export default function ({
+  id,
+  time,
+  interview,
+  student,
+  interviewers,
+  bookInterview,
+  cancelInterview,
+}) {
   //listing all possible  modes
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -44,23 +38,22 @@ export default function (
     interview == null ? EMPTY : SHOW
   );
 
-//saving interview
-  const save =(name, interviewer) =>{
-    
+  //saving interview
+  const save = (name, interviewer) => {
     if (name && interviewer) {
       transition(SAVING);
 
       const interview = {
         student: name,
-        interviewer: interviewer.id
+        interviewer: interviewer.id,
       };
       bookInterview(id, interview)
         .then(() => transition(SHOW))
-        .catch(() => transition(ERROR_SAVE, true))
+        .catch(() => transition(ERROR_SAVE, true));
     }
-  }
+  };
 
- //removing interview
+  //removing interview
   const remove = () => {
     if (mode === SHOW) {
       transition(CONFIRM);
@@ -68,7 +61,7 @@ export default function (
       transition(DELETING);
       cancelInterview(id).then(
         () => transition(EMPTY),
-        error => {
+        (error) => {
           console.log("Delete error:", error);
           transition(ERROR_DELETE, true);
         }
@@ -80,19 +73,16 @@ export default function (
     transition(EDIT);
   };
 
-
-
-
-
   // side effect that listens for changes to the interview, transition or mode values
-  useEffect(() =>{
-  if(interview && mode === EMPTY) {
-    transition(SHOW);
-  }
-  if (interview === null && mode ===SHOW){
-    transition(EMPTY);
-  }
-},[interview,transition,mode]);
+
+  useEffect(() => {
+    if (interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+    if (interview === null && mode === SHOW) {
+      transition(EMPTY);
+    }
+  }, [interview, transition, mode]);
 
   return (
     <article data-testid="appointment">
@@ -136,17 +126,12 @@ export default function (
       )}
 
       {mode === ERROR_DELETE && (
-      <Error
-        onClose={back}
-        message={"Could not delete appointment."}
-      />)}
+        <Error onClose={back} message={"Could not delete appointment."} />
+      )}
 
       {mode === ERROR_SAVE && (
-      <Error
-        onClose={back}
-        message={"Could not save appointment."}
-      />)}
-
+        <Error onClose={back} message={"Could not save appointment."} />
+      )}
     </article>
   );
 }
