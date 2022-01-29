@@ -12,8 +12,8 @@ const reducer = (state, action) => {
     case "FETCH_DATA":
       return { ...state, ...action.payload };
 
-    // case SET_DAY:
-    //   return { ...state, day: action.payload };
+    case SET_DAY:
+      return { ...state, day: action.payload };
 
     case SET_INTERVIEW:
       const { interview, id } = action.payload;
