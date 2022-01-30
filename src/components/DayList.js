@@ -1,7 +1,6 @@
 import React from "react";
 import DayListItem from "./DayListItem";
 const DayList = ({ days, day: propsDay, setDay }) => {
-  console.log("this is propsday",propsDay)
   return (
     <div>
       <ul>
