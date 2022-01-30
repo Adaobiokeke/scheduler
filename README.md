@@ -16,7 +16,30 @@ For quality assurance, the project follows best practices of TDD (Test Driven De
 - A user can cancel an existing interview, a pop-up message will ask to confirm the action before permanently deleting an interview
 - Days display currently remaining spots and capture updates after each modification
 
-**Note** : _For full functionality both must run concurrently: the client and the API server applications (see database* setup below)._
+
+
+### New appointment booking
+!['book-new-apt'](https://github.com/Adaobiokeke/scheduler/blob/master/Docs/Booking-an-appointment.png?raw=true)
+_A user can add interviews to available slots by typing a student name and adding interviewer from the list (an error message will be shown if a student name field is left blank)._
+
+### Saving an appointment
+!['saving-an-appointment'](https://github.com/Adaobiokeke/scheduler/blob/master/Docs/Saving-an-appointment.png?raw=true)
+_A user can save an appointment after booking an appointment by clicking the save button (an error message will be shown if it was unsucessful)._
+
+
+### Interview cancelation
+!['cancel-apt'](https://github.com/Adaobiokeke/scheduler/blob/master/Docs/Cancelling-an-appointment.png?raw=true)
+_A user can cancel an existing appointment by pressing the delete icon and interacting with a warning message by pressing a confirm button._
+
+
+### Deleting an Appointment
+!['Delete-apt'](https://github.com/Adaobiokeke/scheduler/blob/master/Docs/Deleting-an-appointment.png?raw=true)
+_A user can cancel an existing appointment by pressing the delete icon and interacting with a warning message by pressing a confirm button._
+
+
+ **Note** : _For full functionality both must run concurrently: the client and the API server applications (see database* setup below)._
+
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -37,7 +60,6 @@ npm test
 
 ```sh
 npm run storybook
-```
 ## API server/*Database Setup
 
 For full functionality both must run concurrently: the client and the API server applications.
